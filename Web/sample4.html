@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple E‑learning Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --card-radius: 12px;
+      --card-padding: 16px;
+      --accent: #0d6efd;
+      --shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #f4f6fb;
+      color: #222;
+    }
+    header.site-header {
+      background: linear-gradient(135deg, rgba(13,110,253,0.9), rgba(102,16,242,0.9));
+      color: #fff;
+      padding: 2.2rem 0;
+    }
+    header .lead { opacity: .95; }
+    .course-card {
+      background: #fff;
+      border-radius: var(--card-radius);
+      padding: var(--card-padding);
+      box-shadow: var(--shadow);
+      transition: transform .22s ease, box-shadow .22s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .course-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    }
+    .course-thumb {
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .course-meta { margin-top: auto; }
+    .featured-wrapper { position: relative; overflow: hidden; }
+    .featured-item { display: none; padding: 1rem; }
+    .featured-item.active { display: block; }
+    .login-error { color: #b02323; display: none; }
+    footer.site-footer { padding: 1.5rem 0; background: #fff; margin-top: 2rem; border-top: 1px solid #e9ecef; }
+    @media (max-width: 576px) {
+      .course-thumb { height: 110px; }
+      header.site-header { padding: 1.6rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark container">
+      <a class="navbar-brand" href="#">E-Learn</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="#featured">Featured</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item dropdown ms-3">
+            <a class="nav-link dropdown-toggle btn btn-outline-light text-white" href="#" role="button" data-bs-toggle="dropdown">
+              Account
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a></li>
+              <li><a class="dropdown-item" href="#">Sign up</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container text-center mt-4">
+      <h1 class="display-6 mb-2">Learn new skills online</h1>
+      <p class="lead mb-0">Featured courses, easy enrollment and a responsive experience across devices.</p>
+    </div>
+  </header>
+  <main class="container my-5">
+    <section id="featured" class="mb-5">
+      <h2 class="h5 mb-3">Featured courses</h2>
+      <div class="featured-wrapper bg-white rounded p-3" aria-live="polite">
+        <div class="featured-item active" data-index="0">
+          <h5>Full-Stack Web Development</h5>
+          <p class="mb-1 text-muted">Build modern web apps using HTML, CSS, JS and backend APIs.</p>
+          <span class="badge bg-success">New</span>
+        </div>
+        <div class="featured-item" data-index="1">
+          <h5>Data Science Basics</h5>
+          <p class="mb-1 text-muted">Intro to Python, statistics and data visualization.</p>
+          <span class="badge bg-info text-dark">Popular</span>
+        </div>
+        <div class="featured-item" data-index="2">
+          <h5>UI/UX Design Fundamentals</h5>
+          <p class="mb-1 text-muted">Design interfaces and prototypes with usability in mind.</p>
+          <span class="badge bg-warning text-dark">Trending</span>
+        </div>
+        <div class="mt-3 text-end">
+          <button id="featPrev" class="btn btn-sm btn-outline-secondary me-1">Prev</button>
+          <button id="featNext" class="btn btn-sm btn-primary">Next</button>
+        </div>
+      </div>
+    </section>
+    <section id="courses">
+      <h2 class="h5 mb-3">All courses</h2>
+      <div class="row g-3">
+        <article class="col-md-4">
+          <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800" alt="Course 1" class="course-thumb">
+            <h5>Intro to HTML & CSS</h5>
+            <p class="text-muted small">Learn the building blocks of the web.</p>
+            <div class="course-meta d-flex justify-content-between align-items-center mt-2">
+              <div><span class="badge bg-primary">Beginner</span></div>
+              <div><button class="btn btn-sm btn-outline-primary enroll-btn" data-course="Intro to HTML & CSS">Enroll</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="col-md-4">
+          <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=800" alt="Course 2" class="course-thumb">
+            <h5>JavaScript Essentials</h5>
+            <p class="text-muted small">Understand core JavaScript concepts and DOM scripting.</p>
+            <div class="course-meta d-flex justify-content-between align-items-center mt-2">
+              <div><span class="badge bg-secondary">Intermediate</span></div>
+              <div><button class="btn btn-sm btn-outline-primary enroll-btn" data-course="JavaScript Essentials">Enroll</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="col-md-4">
+          <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800" alt="Course 3" class="course-thumb">
+            <h5>Intro to Python</h5>
+            <p class="text-muted small">Start scripting and processing data with Python.</p>
+            <div class="course-meta d-flex justify-content-between align-items-center mt-2">
+              <div><span class="badge bg-success">Beginner</span></div>
+              <div><button class="btn btn-sm btn-outline-primary enroll-btn" data-course="Intro to Python">Enroll</button></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form id="loginForm" class="p-3">
+            <div class="modal-header">
+              <h5 class="modal-title">User Login</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-2">
+                <label class="form-label">Email</label>
+                <input id="loginEmail" type="email" class="form-control" required>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Password</label>
+                <input id="loginPassword" type="password" class="form-control" required minlength="6">
+              </div>
+              <div id="loginError" class="login-error small">Invalid credentials</div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Log in</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <footer id="contact" class="site-footer text-center">
+    <div class="container">
+      <p class="mb-1">Contact us at <a href="mailto:help@elearn.example">help@elearn.example</a></p>
+      <small class="text-muted">© 2025 E‑Learn Demo</small>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    $(function(){
+      let featuredIndex = 0;
+      const $featured = $('.featured-item');
+      const featuredCount = $featured.length;
+      function showFeatured(index){
+        $featured.removeClass('active').fadeOut(200);
+        $featured.eq(index).fadeIn(300).addClass('active');
+      }
+      showFeatured(featuredIndex);
+      $('#featNext').on('click', function(){ featuredIndex = (featuredIndex + 1) % featuredCount; showFeatured(featuredIndex); });
+      $('#featPrev').on('click', function(){ featuredIndex = (featuredIndex - 1 + featuredCount) % featuredCount; showFeatured(featuredIndex); });
+      let rotateTimer = setInterval(function(){ $('#featNext').click(); }, 6000);
+      $('.featured-wrapper').hover(function(){ clearInterval(rotateTimer); }, function(){ rotateTimer = setInterval(function(){ $('#featNext').click(); }, 6000); });
+      $('#loginForm').on('submit', function(e){
+        e.preventDefault();
+        $('#loginError').hide();
+        const email = $('#loginEmail').val().trim();
+        const pass = $('#loginPassword').val();
+        if(!email || !pass || pass.length < 6){
+          $('#loginError').text('Please enter a valid email and password (min 6 chars)').show();
+          return;
+        }
+        const $btn = $(this).find('button[type="submit"]');
+        $btn.prop('disabled', true).text('Signing in...');
+        setTimeout(function(){
+          $btn.prop('disabled', false).text('Log in');
+          if(email.includes('@')){
+            const modalEl = document.getElementById('loginModal');
+            const bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            bsModal.hide();
+            alert('Login successful — welcome back!');
+          } else {
+            $('#loginError').text('Authentication failed.').show();
+          }
+        }, 900);
+      });
+      $('.enroll-btn').on('click', function(){
+        $('#loginModal').modal('show');
+      });
+      $('a[href^="#"]').on('click', function(e){
+        const target = $(this.getAttribute('href'));
+        if(target.length){
+          e.preventDefault();
+          $('html,body').animate({ scrollTop: target.offset().top - 70 }, 600);
+        }
+      });
+      $('#featNext, #featPrev').attr('tabindex', 0);
+    });
+  </script>
+</body>
+</html>
